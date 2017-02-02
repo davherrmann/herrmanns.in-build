@@ -12,6 +12,7 @@ before_install:
 script:
   - git clone git@github.com:davherrmann/herrmanns.in build --branch master --single-branch
   - cd build
+  - git clone git@gist.github.com:${HERRMANNS_IN_BIRMINGHAM_GIST} messages --branch master --single-branch
   - touch index.html
   - echo "hello world!" >> index.html
 
