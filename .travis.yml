@@ -1,5 +1,9 @@
 dist: trusty
-language: generic
+language: node_js
+node_js:
+  - "node"
+
+cache: yarn
 
 before_install:
   - openssl aes-256-cbc -K $encrypted_f4bf9b6bfcf8_key -iv $encrypted_f4bf9b6bfcf8_iv -in id_rsa_travis_herrmann_in_gh_pages.enc -out id_rsa_travis_herrmann_in_gh_pages -d
@@ -10,13 +14,17 @@ before_install:
   - git config user.email "davherrmann@googlemail.com"
 
 script:
-  - git clone git@github.com:davherrmann/herrmanns.in build --branch master --single-branch
+  - git clone git@github.com:davherrmann/herrmanns.in build --branch sources --single-branch
   - cd build
   - git clone git@gist.github.com:${HERRMANNS_IN_BIRMINGHAM_GIST} messages --branch master --single-branch
-  - touch index.html
-  - echo "hello world!" >> index.html
+  - git clone git@github.com:davherrmann/herrmanns.in public --branch master --single-branch
+  - cd public
+  - ls | grep -v .git | xargs rm -r
+  - cd ..
+  - node index.js
 
 after_success:
+  - cd public
   - git add --all .
   - git commit -m "rebuild website triggered by commit ${TRAVIS_COMMIT}"
   - git push origin master
