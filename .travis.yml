@@ -21,7 +21,7 @@ script:
   - cd public
   - ls | grep -v .git | xargs rm -r
   - cd ..
-  - yarn install
+  - npm install
   - node index.js
 
 after_success:
