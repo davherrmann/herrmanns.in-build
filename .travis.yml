@@ -20,7 +20,7 @@ script:
   - git clone git@gist.github.com:${HERRMANNS_IN_SUBSCRIBERS_GIST} subscribers --branch master --single-branch
   - git clone git@github.com:davherrmann/herrmanns.in public --branch master --single-branch
   - cd public
-  - ls | grep -v .git | xargs rm -r
+  - ls | grep -v .git | grep -v images | xargs rm -r
   - cd ..
   - npm install
   - node index.js
